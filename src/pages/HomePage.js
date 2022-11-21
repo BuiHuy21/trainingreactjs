@@ -10,7 +10,7 @@ const HomePage = () => {
         <h2 className="capitalize mb-10 text-white text-2xl font-bold ">
           Now Playing
         </h2>
-        <MovieList />
+        <MovieList type="now_playing" />
       </section>
       <section className="movies-layout page-container pb-20">
         <h2 className="capitalize mb-10 text-white text-2xl font-bold ">
@@ -22,7 +22,7 @@ const HomePage = () => {
         <h2 className="capitalize mb-10 text-white text-2xl font-bold ">
           Trending
         </h2>
-        <MovieList type="popular" />
+        <MovieList type="upcoming" />
       </section>
     </>
   );

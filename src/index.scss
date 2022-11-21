@@ -3,7 +3,7 @@
 @tailwind utilities;
 @layer base{
         body {
-                @apply bg-slate-900 font-body;
+                @apply bg-slate-900 font-body px-5 text-white;
         }
 }
 @layer components{
@@ -20,4 +20,15 @@
                 height: 100%;
         }
        
+}
+//pagination
+
+.paginition{
+       display: flex;
+       align-items: center;
+       justify-content:center;
+       gap: 20px; 
+       .selected{
+        @apply text-primary;
+       }
 }

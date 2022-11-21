@@ -5,6 +5,8 @@ import "swiper/scss/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import useSWR from "swr";
 import { fetcher } from "../../config";
+import Button from "../button/Button";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
   const { data } = useSWR(
@@ -12,13 +14,10 @@ const Banner = () => {
     fetcher
   );
   const movies = data?.results || [];
-  console.log(movies);
   return (
     <section className="banner page-container h-[500px] mb-20 overflow-hidden">
       <Swiper
         spaceBetween={30}
-        grabCursor={"true"}
-        slidesPerView={"auto"}
         autoplay={{
           delay: 3500,
           disableOnInteraction: false,
@@ -28,6 +27,7 @@ const Banner = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper"
       >
         {movies.length > 0 &&
           movies.map((item) => (
@@ -41,7 +41,8 @@ const Banner = () => {
 };
 
 function BannerItem({ item }) {
-  const { title, backdrop_path } = item;
+  const { title, backdrop_path, id } = item;
+  const navigate = useNavigate();
   return (
     <div className="w-full h-full rounded-lg relative">
       <div className="overlay absolute inset-0 bg-gradient-to-b from-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.9)]"></div>
@@ -53,19 +54,23 @@ function BannerItem({ item }) {
       <div className="w-full left-5 bottom-5 text-white absolute select-none">
         <h2 className="font-bold text-3xl mb-5">{title}</h2>
         <div className="flex items-center gap-x-3 mb-8">
-          <span className="border border-white rounded-md px-4 py-2 cursor-pointer select-none">
+          <span className="border border-white text-primary rounded-md px-4 py-2 cursor-pointer select-none">
             Adventure
           </span>
-          <span className="border border-white rounded-md px-4 py-2">
+          <span className="border border-white text-primary rounded-md px-4 py-2">
             Action
           </span>
-          <span className="border border-white rounded-md px-4 py-2">
+          <span className="border border-white text-primary rounded-md px-4 py-2">
             Cartoon
           </span>
         </div>
-        <button className="bg-primary text-white rounded-md cursor-pointer px-6 py-3 font-medium">
+        <Button
+          onClick={() => {
+            navigate(`/movies/${id}`);
+          }}
+        >
           Watch Now
-        </button>
+        </Button>
       </div>
     </div>
   );
